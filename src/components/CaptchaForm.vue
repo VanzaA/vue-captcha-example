@@ -10,6 +10,7 @@
         :sitekey="key"
         :loadRecaptchaScript="true"
         @verify="onVerify"
+        @expired="onExpired"
         ref="recaptcha"
       />
       <div class="actions">
@@ -53,10 +54,14 @@ export default {
     clean() {
       this.user = "";
       this.password = "";
+      this.verified = false;
       this.$refs.recaptcha.reset();
     },
-    onVerify: function(response) {
+    onVerify(response) {
       this.verified = !!response;
+    },
+    onExpired() {
+      this.verified = false;
     }
   }
 };
